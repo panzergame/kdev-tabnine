@@ -1,0 +1,44 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Tristan Porteries",
+                "Name[az]": "Tristan Porteries",
+                "Name[ca@valencia]": "Tristan Porteries",
+                "Name[ca]": "Tristan Porteries",
+                "Name[cs]": "Tristan Porteries",
+                "Name[de]": "Tristan Porteries",
+                "Name[el]": "Tristan Porteries",
+                "Name[en_GB]": "Tristan Porteries",
+                "Name[es]": "Tristan Porteries",
+                "Name[et]": "Tristan Porteries",
+                "Name[eu]": "Tristan Porteries",
+                "Name[fr]": "Tristan Porteries",
+                "Name[gl]": "Tristan Porteries",
+                "Name[it]": "Tristan Porteries",
+                "Name[ko]": "Tristan Porteries",
+                "Name[nl]": "Tristan Porteries",
+                "Name[nn]": "Tristan Porteries",
+                "Name[pl]": "Tristan Porteries",
+                "Name[pt]": "Tristan Porteries",
+                "Name[pt_BR]": "Tristan Porteries",
+                "Name[ru]": "Tristan Porteries",
+                "Name[sk]": "Tristan Porteries",
+                "Name[sl]": "Tristan Porteries",
+                "Name[sv]": "Tristan Porteries",
+                "Name[tr]": "Tristan Porteries",
+                "Name[uk]": "Tristan Porteries",
+                "Name[x-test]": "xxTristan Porteriesxx",
+                "Name[zh_CN]": "Tristan Porteries"
+            }
+        ],
+        "Category": "Utilities",
+        "Description": "This plugin integrates tabnine to KDevelop.",
+        "Icon": "text-field",
+        "Id": "kdevtabnine",
+        "License": "GPL",
+        "Name": "Tabnine"
+    },
+    "X-KDevelop-Category": "Global",
+    "X-KDevelop-Mode": "GUI"
+}
