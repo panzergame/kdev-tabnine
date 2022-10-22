@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 
 project(kdevtabnine)
 
+cmake_policy(SET CMP0135 NEW)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
@@ -50,21 +52,24 @@ target_link_libraries(kdevtabnine
     KDev::Language
 )
 
+set(TABNINE_VERSION "4.4.153" CACHE STRING "TabNine version to download")
+
+if (UNIX)
+    set(TABNINE_PLATFORM "x86_64-unknown-linux-musl")
+elseif (WIN32)
+    set(TABNINE_PLATFORM "x86_64-pc-windows-gnu")
+endif()
+
+
+set(TABNINE_URL "https://update.tabnine.com/bundles/${TABNINE_VERSION}/${TABNINE_PLATFORM}/TabNine.zip")
+
 FetchContent_Declare(
   tabnine
-  GIT_REPOSITORY https://github.com/codota/TabNine.git
-  GIT_TAG 164864631ae952fab4ed0ec5a3ae9770d7b41cf8
+  URL ${TABNINE_URL}
 )
 
 FetchContent_MakeAvailable(tabnine)
 
-message(STATUS ${tabnine_SOURCE_DIR})
-
-add_custom_target(tabnine-download-binaries
-    WORKING_DIRECTORY ${tabnine_SOURCE_DIR}
-    COMMAND bash dl_binaries.sh
-)
-
-install(DIRECTORY ${tabnine_SOURCE_DIR}/binaries DESTINATION share/${PROJECT_NAME})
+install(PROGRAMS ${tabnine_SOURCE_DIR}/TabNine DESTINATION share/${PROJECT_NAME})
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

@@ -5,6 +5,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QStandardPaths>
+#include <QDir>
 #include <QDebug>
 
 namespace Tabnine
@@ -15,6 +17,12 @@ Service::Service()
     setupProcess();
     m_process.start();
     m_process.readAllStandardOutput();
+}
+
+Service::~Service()
+{
+    m_process.terminate();
+    m_process.waitForFinished();
 }
 
 Result Service::resultEntries(const TruncableString &prefix, const TruncableString& suffix)
@@ -34,9 +42,24 @@ Result Service::resultEntries(const TruncableString &prefix, const TruncableStri
 }
 
 void Service::setupProcess()
-{    
-    const QString path = QStringLiteral("/home/tristan/Compilation/TabNine/binaries/4.1.1/x86_64-unknown-linux-musl/TabNine");
-    m_process.setProgram(path);
+{
+    m_process.setProgram(findTabNineExecutable());
+}
+
+QString Service::findTabNineExecutable() const
+{
+    const QStringList &sharePaths = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
+    for (const QString& path : sharePaths) {
+        const QString searchPath = path + QDir::separator() + "kdevtabnine";
+        const QString tabNinePath = QStandardPaths::findExecutable(QStringLiteral("TabNine"), {searchPath});
+        if (!tabNinePath.isEmpty()) {
+            qInfo(KDEV_TABNINE)  << "TabNine found at" << tabNinePath;
+            return tabNinePath;
+        }
+    }
+
+    qInfo(KDEV_TABNINE) << "TabNine not found";
+    return "";
 }
 
 QByteArray Service::buildQuery(const TruncableString &prefix, const TruncableString& suffix, int correlationId) const

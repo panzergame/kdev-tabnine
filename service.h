@@ -11,11 +11,13 @@ class Service
 {
 public:
     explicit Service();
+    ~Service();
 
     Result resultEntries(const TruncableString &prefix, const TruncableString& suffix);
     
 private:
     void setupProcess();
+    QString findTabNineExecutable() const;
 
     QByteArray buildQuery(const TruncableString &prefix, const TruncableString& suffix, int correlationId) const;
     QByteArray fetchQuery(const QByteArray &query);
